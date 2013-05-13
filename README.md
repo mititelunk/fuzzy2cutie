@@ -7,7 +7,7 @@ If you do not like coffee, then Study the fuzzy logic.
 And your wife will give me a cake for the fact that now you spend the night at home.
 ____________________________________________________________
 
-This add-on "PostgreSQL" for "jFuzzyQt" (dynamic link library)
+This add-on (dynamic link library) "PostgreSQL" for "jFuzzyQt" (http://sourceforge.net/projects/jfuzzyqt/?source=navbar)
 
 1) Download and install "jFuzzyQt" from "sourceforge.net";
 
@@ -20,6 +20,4 @@ This add-on "PostgreSQL" for "jFuzzyQt" (dynamic link library)
 5) create function in the "PostgreSQL" (instruction in fuzzy2cutie.sql) write your FCL and SQL-script (like me);
 
 6) If you set "jFuzzyQt", then you read "INSTALL" and know about the "Optimization" for FCL.
-____________________________________________________________
-http://sourceforge.net/projects/jfuzzyqt/?source=navbar
 ____________________________________________________________
