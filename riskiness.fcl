@@ -1,0 +1,78 @@
+FUNCTION_BLOCK riskiness_transaction
+
+VAR_INPUT
+	riskiness_debited : REAL;
+	riskiness_sum : REAL;
+	riskiness_country : REAL;
+END_VAR
+
+VAR_OUTPUT
+	riskiness_transaction : REAL;
+END_VAR
+
+FUZZIFY riskiness_debited
+	TERM mid := (3, 0) (4, 1) (6, 1) (7, 0) ;
+	TERM high := (6, 0) (8, 1) (9, 1) ;
+	TERM low := (0, 1) (3, 1) (4, 0) ;
+END_FUZZIFY
+
+FUZZIFY riskiness_sum
+	TERM mid := (25, 0) (45, 1) (90, 1) (105, 0) ;
+	TERM high := (100, 0) (125, 1) (600, 1) ;
+	TERM low := (0, 1) (15, 1) (30, 0) ;
+END_FUZZIFY
+
+FUZZIFY riskiness_country
+	TERM mid := (2, 0) (3, 1) (4, 1) (5, 0) ;
+	TERM high := (4, 0) (5, 1) (6, 1) ;
+	TERM low := (0, 1) (2, 1) (3, 0) ;
+END_FUZZIFY
+
+DEFUZZIFY riskiness_transaction
+	TERM very_low := 0.167003;
+	TERM mid := 0.452999;
+	TERM high := 0.657997;
+	TERM very_high := 0.800996;
+	TERM low := 0.256002;
+	TERM below_mid := 0.356001;
+	TERM above_mid := 0.557998;
+	METHOD : COGS;
+	DEFAULT := 0;
+END_DEFUZZIFY
+
+RULEBLOCK no1
+	ACCU : MAX;
+	ACT : MIN;
+	AND : MIN;
+	OR: MAX;
+
+	RULE 1 : IF (riskiness_debited IS low AND riskiness_country IS low) AND riskiness_sum IS low THEN riskiness_transaction IS very_low;
+	RULE 2 : IF (riskiness_debited IS low AND riskiness_country IS low) AND riskiness_sum IS mid THEN riskiness_transaction IS low;
+	RULE 3 : IF (riskiness_debited IS low AND riskiness_country IS low) AND riskiness_sum IS high THEN riskiness_transaction IS below_mid;
+	RULE 4 : IF (riskiness_debited IS low AND riskiness_country IS mid) AND riskiness_sum IS low THEN riskiness_transaction IS low;
+	RULE 5 : IF (riskiness_debited IS low AND riskiness_country IS mid) AND riskiness_sum IS mid THEN riskiness_transaction IS below_mid;
+	RULE 6 : IF (riskiness_debited IS low AND riskiness_country IS mid) AND riskiness_sum IS high THEN riskiness_transaction IS mid;
+	RULE 7 : IF (riskiness_debited IS low AND riskiness_country IS high) AND riskiness_sum IS low THEN riskiness_transaction IS below_mid;
+	RULE 8 : IF (riskiness_debited IS low AND riskiness_country IS high) AND riskiness_sum IS mid THEN riskiness_transaction IS mid;
+	RULE 9 : IF (riskiness_debited IS low AND riskiness_country IS high) AND riskiness_sum IS high THEN riskiness_transaction IS above_mid;
+	RULE 10 : IF (riskiness_debited IS mid AND riskiness_country IS low) AND riskiness_sum IS low THEN riskiness_transaction IS low;
+	RULE 11 : IF (riskiness_debited IS mid AND riskiness_country IS low) AND riskiness_sum IS mid THEN riskiness_transaction IS below_mid;
+	RULE 12 : IF (riskiness_debited IS mid AND riskiness_country IS low) AND riskiness_sum IS high THEN riskiness_transaction IS mid;
+	RULE 13 : IF (riskiness_debited IS mid AND riskiness_country IS mid) AND riskiness_sum IS low THEN riskiness_transaction IS below_mid;
+	RULE 14 : IF (riskiness_debited IS mid AND riskiness_country IS mid) AND riskiness_sum IS mid THEN riskiness_transaction IS mid;
+	RULE 15 : IF (riskiness_debited IS mid AND riskiness_country IS mid) AND riskiness_sum IS high THEN riskiness_transaction IS above_mid;
+	RULE 16 : IF (riskiness_debited IS mid AND riskiness_country IS high) AND riskiness_sum IS low THEN riskiness_transaction IS mid;
+	RULE 17 : IF (riskiness_debited IS mid AND riskiness_country IS high) AND riskiness_sum IS mid THEN riskiness_transaction IS above_mid;
+	RULE 18 : IF (riskiness_debited IS mid AND riskiness_country IS high) AND riskiness_sum IS high THEN riskiness_transaction IS high;
+	RULE 19 : IF (riskiness_debited IS high AND riskiness_country IS low) AND riskiness_sum IS low THEN riskiness_transaction IS below_mid;
+	RULE 20 : IF (riskiness_debited IS high AND riskiness_country IS low) AND riskiness_sum IS mid THEN riskiness_transaction IS mid;
+	RULE 21 : IF (riskiness_debited IS high AND riskiness_country IS low) AND riskiness_sum IS high THEN riskiness_transaction IS above_mid;
+	RULE 22 : IF (riskiness_debited IS high AND riskiness_country IS mid) AND riskiness_sum IS low THEN riskiness_transaction IS mid;
+	RULE 23 : IF (riskiness_debited IS high AND riskiness_country IS mid) AND riskiness_sum IS mid THEN riskiness_transaction IS above_mid;
+	RULE 24 : IF (riskiness_debited IS high AND riskiness_country IS mid) AND riskiness_sum IS high THEN riskiness_transaction IS high;
+	RULE 25 : IF (riskiness_debited IS high AND riskiness_country IS high) AND riskiness_sum IS low THEN riskiness_transaction IS above_mid;
+	RULE 26 : IF (riskiness_debited IS high AND riskiness_country IS high) AND riskiness_sum IS mid THEN riskiness_transaction IS high;
+	RULE 27 : IF (riskiness_debited IS high AND riskiness_country IS high) AND riskiness_sum IS high THEN riskiness_transaction IS very_high;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
