@@ -19,4 +19,6 @@ This add-on "PostgreSQL" for "jFuzzyQt" (dynamic link library)
 
 5) create function in the "PostgreSQL" (instruction in fuzzy2cutie.sql) write your FCL and SQL-script (like me);
 
-6) If you set "jFuzzyQt", then you read "INSTALL" and know about the "Optimization" for FCL.
+6) If you set "jFuzzyQt" (http://sourceforge.net/projects/jfuzzyqt/files/latest/download?source=files),
+
+then you read "INSTALL" and know about the "Optimization" for FCL.
